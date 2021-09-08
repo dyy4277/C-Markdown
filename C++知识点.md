@@ -145,6 +145,77 @@ for_each(v.begin(), v.end(), myPrint);//利用回调的原理进行处理
    ​	string(const string& str)//拷贝构造
 
    ​	string(int n,char c)//使用n个字符串初始化
+   
+5. string查找和替换
+
+   ​	int find(const string& str,int pos = 0)const;//查找第一次出现的位置，从pos开始查找。。。
+
+   ​	string& replace(int pos,int n,const string& str);//替换从pos开始n个字符为字符串str
+
+string字符串比较：按照字符串ASCII码进行比较，= 返回1，> 返回1, <返回-1
+
+   ​	int compare(const string &s);与字符串s进行比较
+
+   例:string str1;string str2;
+
+   ​	if(str1.compare(str2)==0){}
+
+6. string字符获取
+
+   ​	char& operator[](int n) //通过[]方式获取字符（str.size()返回字符串长度）,例str[i]
+
+   ​	char&at(int n);//通过st方法获取字符,例:str.at(i)
+
+   ​	修改:
+
+   ​	str[i] = ‘x’;
+
+   ​	str.at(i) = ‘x’;
+
+7. string插入和删除
+
+   插入：str.insert(1,str2)//插入位置，插入字符串
+
+   删除：str.erase(1,3)//从位置1起删除3个字符
+
+8. string截取子串
+
+   substr = str.substr(1,3)//从位置1起截取3个字符
+
+##### 容器 vector
+
+​	功能:vector 数据结构和数组非常相似，也称为单端数组
+
+​	vector和数组区别：数组是静态空间，而vector可以动态扩展
+
+(动态扩展不是在原空间之后续接新空间，而是找更大的空间，然后将原数据拷贝到新空间，释放原空间)
+
+###### vector赋值操作:
+
+​		vector& operator = (const vector &vec);//重载等号操作符 v1 = v2
+
+​		assign(beg,end);//将[beg, end]区间中的数据拷贝赋值给本身 v3 = assign(v1.begin(),v1.end())
+
+​		assign(n,elem);//将n个elem拷贝赋值给本身v4 = assign(4,100) -> [100,100,100,100]
 
 
 
+###### vector容量和大小相关操作:
+
+​		empty() //容器是否为空
+
+​		capacity() //容器的容量
+
+​		size() //返回容器中元素的个数
+
+​		resize(int Num) //指定容器长度，若容器变长，则以默认值填充新位置，反之，则超出元素被删除
+
+​		resize(int Num,elem)//同上，只不过默认值为elem
+
+###### vector插入和删除操作：
+
+​		push_back(ele)	//尾部插入元素ele
+
+​		pop_back()	//删除最后一个元素
+
+​		insert(const_iterator pos,ele)	//迭代器
