@@ -125,3 +125,26 @@ void myPrint(int val) {
 for_each(v.begin(), v.end(), myPrint);//利用回调的原理进行处理
 ```
 
+
+
+容器 string
+
+1. string 是C++的字符串，本质上是一个类
+2. string和char*的区别：	
+​   char*是一个指针
+
+​	string是一个类，类内部封装了char\*，是一个char\*类型的容器.
+3. string封装了一些成员方法:find 查找，copy 拷贝，delete 删除， replace 替换， insert 插入
+
+4. string构造函数
+
+   ​	string()//无参构造
+
+   ​	string(const char* s)//有参构造 const char * str = “helloworld”;
+
+   ​	string(const string& str)//拷贝构造
+
+   ​	string(int n,char c)//使用n个字符串初始化
+
+
+
