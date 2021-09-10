@@ -218,4 +218,66 @@ string字符串比较：按照字符串ASCII码进行比较，= 返回1，> 返�
 
 ​		pop_back()	//删除最后一个元素
 
-​		insert(const_iterator pos,ele)	//迭代器
+​		insert(const_iterator pos,ele)	//迭代器指向pos插入ele
+
+​		insert(const_iterator pos,count,ele)	//迭代器指向pos插入count个ele
+
+​		erase(const_iterator pos)  //删除迭代器指向的元素
+
+​		erase(const_iterator start，const_iterator end)  //删除迭代器指向的元素区间
+
+​		clear() 	//删除容器中的所有元素
+
+
+
+vector数据存储
+
+​		v.at(idx)  //返回索引idx所指的数据
+
+​		v[idx] //同上
+
+​		v.front()	//返回容器中的第一个元素
+
+​		v.end()	//返回容器中的最后一个元素
+
+
+
+vector互换容器
+
+//可以利用容器元素互换收缩容器内存
+
+​		v.swap(vec)	//将vec与本身的元素互换
+
+
+
+
+
+vector预留空间
+
+​	//减少vector在动态扩展容量时的扩展次数
+
+​		reserve(int len)	//容器预留len个元素长度，预留位置不初始化，元素不可访问
+
+###### deque 容器
+
+​		功能:双端数组，可以对头部和尾部插入删除
+
+deque和vector区别
+
+​		vector对于头部插入删除效率低，数据量越大，效率越低
+
+​		deque相对而言，头部的插入删除速度更快
+
+​		vector访问员是时速度会比deque快
+
+![](%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210910205746.png)
+
+
+
+deque内部工作原理:
+
+deque内部有一个中控器，维护每段缓冲区中的内容，缓冲区中存放真实数据
+
+中控器维护的是每个缓冲区的地址，使得使用deque时像一片连续的内存空间
+
+![](%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210910210132.png)
