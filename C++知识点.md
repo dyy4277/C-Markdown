@@ -356,7 +356,91 @@ empty();	//栈是否为空
 
 size();		//返回栈的大小
 
+##### list容器
 
+将数据进行链式存储。是物理存储单元上非连续的存储结构，数据元素的逻辑顺序是通过链表中的指针链接实现的
+
+（双向循环链表）
+
+构造函数:
+
+list<type> lst;
+
+list(beg,end);
+
+list(n,elem);
+
+list(const list &lst);
+
+赋值操作和交换
+
+assign(beg,end)  
+
+assign(n,elem)
+
+list& operator=(const &list lst)
+
+swap(lst)
+
+大小操作
+
+size()
+
+empty()
+
+resize(Num)
+
+resize(Num,elem)
+
+插入删除
+
+push_front()
+
+push_back()
+
+pop_front()
+
+pop_back()
+
+insert(pos,elem)
+
+insert(pos,n,elem)
+
+insert(pos,beg,end)
+
+clear()
+
+erase(beg,end)
+
+erase(pos)
+
+remove(elem)
+
+begin()
+
+end()
+
+
+
+优点:1.动态存储分配，不会造成内存浪费和溢出
+
+​		2.链表执行插入删除十分方便
+
+缺点:1.空间(指针域)和时间(遍历)消耗较大
+
+list插入删除操作不会影响list迭代器，但是vector会。
+
+
+
+##### list和vector(**顺序表**)优缺点比较
+
+vector:优.和数组类似开辟一段连续的空间，并且支持随机访问，所以它的查找效率高其时间复杂度O(1)。
+
+​			缺.由于开辟一段连续的空间，所以插入删除会需要对数据进行移动比较麻烦，时间复杂度O(n)。
+
+list:	 优.底层实现是循环双链表，当对大量数据进行插入删除时，其时间复杂度O(1)
+
+​			缺.底层没有连续的空间，只能通过指针来访问，所以查找数据需要遍历其时间复杂度O（n），没有提供[]操作符的重载。
 
 ## 问题
 
