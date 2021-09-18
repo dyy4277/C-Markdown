@@ -48,6 +48,211 @@ const Type Func(Type Val);
 
 ​	动态多态：通过继承重写基类的虚函数实现的多态，**在程序运行时**根据基类的引用（指针）指向的对象来确定自己具体该调用哪一个类的虚函数。 运行时在虚函数表中寻找调用函数的地址。
 
+
+
+### 模板
+
+作用：建立通用的模具，提高复用性
+
+模板机制： 函数模板
+
+​					类模板
+
+**函数模板**：建立一个通用函数，其函数返回值类型和形参类型可以不具体制定，用一个虚拟的类型来指代。
+
+语法：
+
+```
+template<typename T> //template声明创建模板，typename表明其后的符号是数据类型也可以使用class替代，可用class替代，T通用数据类型
+函数声明或定义
+
+调用方式：
+1. myswap(a, b);//编译器自动推导
+2. myswap<int>(a, b);//显示指定类型
+```
+
+例：
+
+```
+//函数模板
+template<typename T> //声明一个模板，告诉编译器后面代码中紧跟着的T不要报错，T是一个通用数据类型
+
+void myswap(T &a,T &b) {
+	T temp;
+	temp = a;
+	a = b;
+	b = temp;
+}
+
+int main() {
+	int a = 10;
+	int b = 9;
+	cout << "交换前" << endl;
+	cout << "a =" << a << endl;
+	cout << "b =" << b << endl;
+	myswap(a, b);//编译器自动推导
+	cout << "交换后" << endl;
+	cout << "a =" << a << endl;
+	cout << "b =" << b << endl;
+
+	
+	cout << "交换前" << endl;
+	cout << "a =" << a << endl;
+	cout << "b =" << b << endl;
+	myswap<int>(a, b);//显示指定类型
+	cout << "交换后" << endl;
+	cout << "a =" << a << endl;
+	cout << "b =" << b << endl;
+	system("pause");
+	return 0;
+}
+```
+
+
+
+函数模板注意事项
+
+​		1.自动类型推导，必须推导出一致的数据类型T才可以使用
+
+​		2.模板必须要确定出T的数据类型才可以使用
+
+函数模板有时候无法处理一些自定义类型，但是可以利用具体化自定义类型的版本实现代码，优先被调用
+
+例：
+
+```
+template<class T>//原模块
+bool myCompare(T a, T b) {
+	return a > b;
+}
+ //具体化person版本
+template<> bool myCompare(person &p1, person &p2) {
+	return (p1.name == p2.name && p1.age == p2.age);
+}
+
+```
+
+###### 类模板
+
+作用:建立一个通用类，类中的成员数据类型可以不具体制定，用一个虚拟的类型来代表。
+
+语法：
+
+```
+template<typename T>
+类
+```
+
+例：
+
+```
+template<class nametype,class agetype>
+class person {
+public:
+	nametype name;
+	agetype age;
+
+	person(nametype n, agetype a) {
+		this->age = a;
+		this->name = n;
+	}
+
+};
+```
+
+函数模板和类模板的区别
+
+|          | 函数模板                                                     | 类模板                                                       |
+| -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 调用方式 | myswap(a, b);//编译器自动推导<br />myswap<int>(a, b);//显示指定类型 | person<string, int> p1("dsfds", 6666);//显示制定类型         |
+|          |                                                              | 可以指定默认类型：template <class Nametype,class Agetype = int> |
+
+类模板对象做函数参数
+		1，指定传入类型 -- 直接显示函数传参方式
+		2，参数模板化   -- 将对象中的参数变为模板进行传递
+		3，整个类模板化 -- 将这个对象类型模板化进行传递
+
+```
+void printPerson1(person<string, int>& p) {
+	p.showperson();
+}
+
+template <class T1, class T2>
+void printPerson2(person<T1, T2> &p) {
+	p.showperson();
+	cout << "T1的类型为:" << typeid(T1).name() << endl;
+	cout << "T2的类型为:" << typeid(T2).name() << endl;
+}
+
+template<class T>
+void printPerson3(T& p) {
+	p.showperson();
+}
+
+void test() {
+	person <string> p("唐山",23);
+	printPerson1(p);
+	printPerson2(p);
+	printPerson3(p);
+}
+```
+
+类模板与继承
+注意要点:
+		1，当子类继承的父类是一个类模板时，子类在声明的时候，要指定父类中T的类型，如果不指定，编译器无法给子类分配内存
+		2，子类变为类模板时，可灵活指定父类中T的类型
+
+```
+template<class T>
+class Base {
+public:
+	T a;
+};
+
+class Son :public Base<int> {
+};
+
+template<class T1,class T2>
+class Son2 :public Base<T1> {
+public:
+	Son2() {
+		cout << typeid(T1).name() << endl;
+		cout << typeid(T2).name() << endl;
+	}
+};
+
+void test1() {
+	Son s;
+	char a = 's';
+	Son2<char, int> s2;
+}
+```
+
+类模板成员函数类外实现：需要加上模板参数列表
+
+```
+template <class T>
+class TV {
+public:
+	T size;
+	TV(T size);
+	void watchTV();
+};
+
+//构造函数
+template<class T>
+TV<T>::TV(T) {
+	this->size = size;
+}
+//成员函数
+template<class T>
+void TV<T>::watchTV() {
+	cout << "一起来看电视啊" << endl;
+}
+```
+
+
+
 ### STL 
 
 ```
@@ -248,15 +453,15 @@ vector互换容器
 
 ​		v.swap(vec)	//将vec与本身的元素互换
 
-
-
-
-
 vector预留空间
 
 ​	//减少vector在动态扩展容量时的扩展次数
 
 ​		reserve(int len)	//容器预留len个元素长度，预留位置不初始化，元素不可访问
+
+vector底层是怎么实现的？
+
+
 
 ###### deque 容器
 
@@ -420,7 +625,17 @@ begin()
 
 end()
 
+数据存取
 
+front()
+
+back()
+
+反转和排序
+
+reverse()
+
+lst.sort()	//对于自定义类型排序，需要自定义排序规则
 
 优点:1.动态存储分配，不会造成内存浪费和溢出
 
@@ -441,6 +656,70 @@ vector:优.和数组类似开辟一段连续的空间，并且支持随机访问
 list:	 优.底层实现是循环双链表，当对大量数据进行插入删除时，其时间复杂度O(1)
 
 ​			缺.底层没有连续的空间，只能通过指针来访问，所以查找数据需要遍历其时间复杂度O（n），没有提供[]操作符的重载。
+
+
+
+###### set/multiset容器
+
+set基本概念：所有元素都会在插入时自动被排序
+
+本质：属于关联式容器，底层结构是用二叉树实现的。
+
+set和multiset的区别:
+
+​		set不允许容器中有重复的元素，但是multiset允许
+
+set构造和赋值:
+
+​		set<type> s;
+
+​		set(const set& s);
+
+​		set& operator=(const set &s);
+
+set大小和交换
+
+​		size()
+
+​		empty()
+
+​		swap(s)
+
+set插入删除
+
+​		insert(elem);
+
+​		clear()
+
+​		erase(pos)
+
+​		erase(beg,end)
+
+​		erase(elem)
+
+set查找和统计
+
+​		find(key)
+
+​		count(key)
+
+set和multiset区别
+
+​		set不允许容器中有重复的元素，但是multiset不会检测数据，因此可以插入相同数据
+
+​		set insert的时候会返回结果，表示是否插入成功
+
+set容器排序：利用仿函数改变排序规则,而且必须在插入数据区才能更改
+
+
+
+
+
+pair对组创建
+
+​		pair<type,type> p(calue1,value2);
+
+​		pair<ttype,type> p = make_pair(value1,value2);
 
 ## 问题
 
@@ -662,4 +941,3 @@ LRU：最近最久未使用置换算法
 
 ​		四次挥手:分别对应主动方关闭发送数据，被动方确认；被动方关闭发送数据，主动方确认。
 
-​		
