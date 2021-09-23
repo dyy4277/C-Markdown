@@ -33,8 +33,8 @@
     ```
     const仅仅是不能通过变量名去操作这块内存，但是可以通过其它方法，如通过指针是可以修改被const修饰的那块内存的。
 
-##### 考点2 const 成员函数mutable 修饰
-	函数不改变类的成员变量，除非变量被
+##### 考点2 const 成员函数
+	函数不改变类的成员变量，除非变量被mutable 修饰
 ```C++
 const Type Func(Type Val);
 ```
@@ -443,7 +443,7 @@ vector数据存储
 
 ​		v.front()	//返回容器中的第一个元素
 
-​		v.end()	//返回容器中的最后一个元素
+​		v.back()	//返回容器中的最后一个元素
 
 
 
@@ -483,7 +483,7 @@ deque内部工作原理:
 
 deque内部有一个中控器，维护每段缓冲区中的内容，缓冲区中存放真实数据
 
-中控器维护的是每个缓冲区的地址，使得使用deque时像一片连续的内存空间
+中控器维护的是每个缓冲区的地址，使 得使用deque时像一片连续的内存空间
 
 ![](%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20210910210132.png)
 
@@ -497,13 +497,13 @@ deque构造函数和vector的构造函数几乎一致
 
 | deque大小操作                                                | vector大小操作                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| d.empty()<br />d.size()<br />d.resize(num)<br />d.resize(elem,num) | v.empty()<br />v.capacity()<br />v.size()<br />v.resize(num)<br />v.resize(elem,num) |
+| d.empty()<br />d.size()<br />d.resize(num)<br />d.resize(num,elem) | v.empty()<br />v.capacity()<br />v.size()<br />v.resize(num)<br />v.resize(num,elem)<br />v.reserve() |
 
 deque没有容量的概念，所以不需要capacity()
 
 | deque插入和删除                                              | vector插入和删除                                             |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| push_back(elem)<br />push_front(elem)<br />pop_back()<br />pop_front()<br /><br />insert(pos,elem)<br />insert(pos,n,elem)<br />insert(pos,d2.beg,d2.end)<br />clear()<br />erase(d.beg,d.end)<br />erase(pos) | push_back(elem)<br />pop_back()<br /><br />insert(pos,elem)<br />insert(pos,n,elem)<br />clear()<br />erase(v.beg,v.end)<br />erase(pos) |
+| push_back(elem)<br />push_front(elem)<br />pop_back()<br />pop_front()<br /><br />insert(pos,elem)<br />insert(pos,n,elem)<br />insert(pos,d2.beg,d2.end)<br />clear()<br />erase(d.beg,d.end)<br />erase(pos) | push_back(elem)<br />pop_back()<br /><br />insert(pos,elem)<br />insert(pos,n,elem)<br />insert(pos,d2.beg,d2.end)<br />clear()<br />erase(v.beg,v.end)<br />erase(pos) |
 
 ###### stack容器
 
@@ -717,9 +717,59 @@ set容器排序：利用仿函数改变排序规则,而且必须在插入数据�
 
 pair对组创建
 
-​		pair<type,type> p(calue1,value2);
+​		pair<type,type> p(value1,value2);
 
 ​		pair<ttype,type> p = make_pair(value1,value2);
+
+
+
+map/multimap容器
+
+基本概念:
+
+- map中所有元素都是pair
+- pari中两个元素分别为key值和value值
+- 所有元素都会根据元素的键值自动排序
+
+本质：
+
+​	map/multimap属于关联式容器，底层结构和set/multiset一样都是用二叉树实现的
+
+优点：可以根据key值快速找到value值
+
+map和multimap区别：map不允许容器中有重复的key，而multimap允许。
+
+
+
+map构造和赋值
+
+- map<T1,T2> m;
+- map<const map &m>;//拷贝构造
+- map& operator=(const map &m)
+
+map大小和交换
+
+- size()
+- empty()
+- swap()
+
+map插入和删除
+
+- insert(elem)
+- clear()
+- erase(pos)//删除pos迭代器所指的元素，返回下一个元素的迭代器
+- erase(beg,end)//删除(beg,end)区间的所以元素，返回下一个迭代器
+- erase(key)
+
+map查找和统计
+
+find(key)//返回对应元素迭代器，否则返回m.end()
+
+count(key)
+
+map自定义排序可以利用仿函数实现
+
+
 
 ## 问题
 
@@ -737,6 +787,10 @@ pair对组创建
 
 
 ##### 2.析构函数为虚函数的作用，解释原理；构造函数里面调用虚函数执行的是父类还是子类，为什么。
+
+​		虚析构函数使得在删除指向子类对象的基类指针时可以调用子类的析构函数达到释放子类中堆内存的目的，而防止内存泄露。
+
+​		不要在构造函数和析构函数中调用虚函数，这样调用跟调用普通函数是一样的，只会调用当前类的函数。构造函数和析构函数，都会把虚函数表指针设置为当前类的虚函数表地址，因此，在构造函数和析构函数中调用的虚函数，都是调用的当前类的函数。
 
 ##### 3.assert的作用。
 
@@ -813,7 +867,7 @@ new分配内存到**自由存储区**，不仅可以是堆，还可以是静态�
 
 ​	**面向过程**是一种以**过程**为中心的编程思想，它首先分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步实现，在使用时依次调用，是一种基础的顺序的思维方式。
 
-​	面向对象是按人们认识客观世界的系统思维方式，采用基于对象（实体）的概念建立模型，模拟客观世界分析、设计、实现软件的编程思想，通过面向对象的理念使计算机软件系统能与现实世界中的系统一一对应。
+​	面向对象是按人们 认识客观世界的系统思维方式，采用基于对象（实体）的概念建立模型，模拟客观世界分析、设计、实现软件的编程思想，通过面向对象的理念使计算机软件系统能与现实世界中的系统一一对应。
 
 ##### 10.sizeof 与 strlen的区别
 
