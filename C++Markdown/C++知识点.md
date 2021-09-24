@@ -505,6 +505,12 @@ deque没有容量的概念，所以不需要capacity()
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | push_back(elem)<br />push_front(elem)<br />pop_back()<br />pop_front()<br /><br />insert(pos,elem)<br />insert(pos,n,elem)<br />insert(pos,d2.beg,d2.end)<br />clear()<br />erase(d.beg,d.end)<br />erase(pos) | push_back(elem)<br />pop_back()<br /><br />insert(pos,elem)<br />insert(pos,n,elem)<br />insert(pos,d2.beg,d2.end)<br />clear()<br />erase(v.beg,v.end)<br />erase(pos) |
 
+deque双端数组，vector单端数组
+
+| deque访问元素                                  | vector访问元素                                 |
+| ---------------------------------------------- | ---------------------------------------------- |
+| deq[1]<br />deq.at(1)<br />front()<br />back() | v[idx]<br />v.at(idx)<br />front()<br />back() |
+
 ###### stack容器
 
 构造函数：
@@ -569,13 +575,14 @@ size();		//返回栈的大小
 
 构造函数:
 
-list<type> lst;
+- list<type> lst;
 
-list(beg,end);
+- list(beg,end);
 
-list(n,elem);
+- list(n,elem);
 
-list(const list &lst);
+- list(const list &lst);
+
 
 赋值操作和交换
 
@@ -599,31 +606,32 @@ resize(Num,elem)
 
 插入删除
 
-push_front()
+- push_front()
 
-push_back()
+- push_back()
 
-pop_front()
+- pop_front()
 
-pop_back()
+- pop_back()
 
-insert(pos,elem)
+- insert(pos,elem)
 
-insert(pos,n,elem)
+- insert(pos,n,elem)
 
-insert(pos,beg,end)
+- insert(pos,beg,end)
 
-clear()
+- clear()
 
-erase(beg,end)
+- erase(beg,end)
 
-erase(pos)
+- erase(pos)
 
-remove(elem)
+- remove(elem)
 
-begin()
+- begin()
 
-end()
+- end()
+
 
 数据存取
 
@@ -671,19 +679,21 @@ set和multiset的区别:
 
 set构造和赋值:
 
-​		set<type> s;
+- set<type> s;
 
-​		set(const set& s);
+- set(const set& s);
 
-​		set& operator=(const set &s);
+- set& operator=(const set &s);
+
 
 set大小和交换
 
-​		size()
+- size()
 
-​		empty()
+- empty()
 
-​		swap(s)
+- swap(s)
+
 
 set插入删除
 
@@ -768,6 +778,18 @@ find(key)//返回对应元素迭代器，否则返回m.end()
 count(key)
 
 map自定义排序可以利用仿函数实现
+
+
+
+|        |              |                                                              |
+| ------ | ------------ | ------------------------------------------------------------ |
+| string |              |                                                              |
+| vector | 单端数组     | 高效的随机访问和在尾端插入/删除操作<br />其他位置的插入/删除操作效率低下 |
+| deque  | 双端数组     | 内部方便插入和删除操作方便<br />随机访问方便<br />占用内存多 |
+| queue  | 队列         | queue只能从队首删除元素,但是两端都能访问                     |
+| list   | 双向循环链表 | 动态存储分配，不会造成内存浪费和溢出<br />链表执行插入删除十分方便<br />空间(指针域)和时间(遍历)消耗较大 |
+| set    | 二叉树       |                                                              |
+| map    | 二叉树       |                                                              |
 
 
 
