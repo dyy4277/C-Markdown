@@ -697,15 +697,16 @@ set大小和交换
 
 set插入删除
 
-​		insert(elem);
+- insert(elem);
 
-​		clear()
+- clear()
 
-​		erase(pos)
+- erase(pos)
 
-​		erase(beg,end)
+- erase(beg,end)
 
-​		erase(elem)
+- erase(elem)
+
 
 set查找和统计
 
@@ -790,6 +791,96 @@ map自定义排序可以利用仿函数实现
 | list   | 双向循环链表 | 动态存储分配，不会造成内存浪费和溢出<br />链表执行插入删除十分方便<br />空间(指针域)和时间(遍历)消耗较大 |
 | set    | 二叉树       |                                                              |
 | map    | 二叉树       |                                                              |
+
+##### 函数对象（仿函数）
+
+本质:函数对象使用重载的()是，行为类似函数调用
+
+特点：
+
+- 使用仿函数时，行为类似函数调用，可以有参数和返回值
+- 可以有对象本身的参数和方法
+
+谓词
+
+概念：
+
+- 返回bool类型的仿函数称为谓词
+- 接收n个参数，被叫做n元谓词
+
+```
+class GreateFive {
+public:
+	bool operator()(int val) {
+		return val > 5;
+	}
+};
+
+int main() {
+	vector<int> v5;
+	for (int i = 2; i < 22; i += 3) {
+		v5.push_back(i);
+	}
+
+	vector<int>::iterator it = find_if(v5.begin(), v5.end(), GreateFive());
+	if (it == v5.end()) {
+		cout << "全小于5" << endl;
+	}
+	else {
+		cout << "存在大于5" << *it<< endl;
+	}
+	return 0;
+}
+```
+
+ps:留意find_if函数使用
+
+
+
+##### 内建仿函数#include<functional>
+
+分类：
+
+| 算术                                   | 关系                                          | 逻辑                                   |
+| -------------------------------------- | --------------------------------------------- | -------------------------------------- |
+| template<class T> plus<T> //加法       | template<class T> equal<T> //等于             | template<class T> logical__and<T> //与 |
+| template<class T> minus<T> //减法      | template<class T> not_equal<T> //不等于       | template<class T> logical__or<T> //或  |
+| template<class T> multiplies<T> //乘法 | template<class T> greater<T> //大于           | template<class T> logical__not<T> //非 |
+| template<class T> dixides<T> //除法    | template<class T> greater_equal<T> //大于等于 |                                        |
+| template<class T> modulus<T> //取模    | template<class T> less<T> //小于              |                                        |
+| template<class T> nagate<T> //取反     | template<class T> less_equal<T> //小于等于    |                                        |
+
+例：
+
+```
+negate<int> n;
+cout << n(50) << endl;
+plus<int> p;
+cout << p(10, 20) << endl;
+```
+
+```
+sort(v5.begin(), v5.end(), greater<int>());//逆序
+```
+
+```
+transfrom(v.begin(),v.end(),v2.begin(),logical_not<bool>());//取反后迁移
+```
+
+##### STL常用算法:头文件：<algorithm><functional><numeric>
+
+| 算法          | 例子                                                         |                                                    |
+| ------------- | ------------------------------------------------------------ | -------------------------------------------------- |
+| for_each      | for_each(iterator beg,iterator end,func)//将遍历的数据当做参数传入func | 遍历容器，函数func为函数名，仿函数需要加上()       |
+| transform     | transform(v.begin(),v.end(),v2.begin(),_func)//目标容器需要提前开辟足够空间 | 搬运容器到另一个容器中                             |
+| find          | fing(iterator beg,iterator end,value)//查找自定义类型时需要重载== | 查找指定元素，返回指定元素迭代器或者end()          |
+| find_if       | fing_if(iterator beg,iterator end,_Perd)//_Perd为函数或者谓词 | 按条件查找元素(只返回符合条件的第一个元素的迭代器) |
+| adjacent_find | adjacent_fing(iterator beg,iterator end)//返回第一个位置迭代器或者end() | 查找重复相邻的元素                                 |
+| binary_search | binary_search(iterator beg,iterator end，value)//元素必须有序,返回bool | 二分查找法                                         |
+| count         | count(iterator beg,iterator end，value)//自定义类型需要重载== | 统计元素个数                                       |
+| count_if      | count_if(iterator beg,iterator end，_Perd)//_Perd为函数或者谓词 | 按条件统计元素个数                                 |
+|               |                                                              |                                                    |
+|               |                                                              |                                                    |
 
 
 
