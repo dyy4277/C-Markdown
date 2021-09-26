@@ -869,18 +869,21 @@ transfrom(v.begin(),v.end(),v2.begin(),logical_not<bool>());//取反后迁移
 
 ##### STL常用算法:头文件：<algorithm><functional><numeric>
 
-| 算法          | 例子                                                         |                                                    |
-| ------------- | ------------------------------------------------------------ | -------------------------------------------------- |
-| for_each      | for_each(iterator beg,iterator end,func)//将遍历的数据当做参数传入func | 遍历容器，函数func为函数名，仿函数需要加上()       |
-| transform     | transform(v.begin(),v.end(),v2.begin(),_func)//目标容器需要提前开辟足够空间 | 搬运容器到另一个容器中                             |
-| find          | fing(iterator beg,iterator end,value)//查找自定义类型时需要重载== | 查找指定元素，返回指定元素迭代器或者end()          |
-| find_if       | fing_if(iterator beg,iterator end,_Perd)//_Perd为函数或者谓词 | 按条件查找元素(只返回符合条件的第一个元素的迭代器) |
-| adjacent_find | adjacent_fing(iterator beg,iterator end)//返回第一个位置迭代器或者end() | 查找重复相邻的元素                                 |
-| binary_search | binary_search(iterator beg,iterator end，value)//元素必须有序,返回bool | 二分查找法                                         |
-| count         | count(iterator beg,iterator end，value)//自定义类型需要重载== | 统计元素个数                                       |
-| count_if      | count_if(iterator beg,iterator end，_Perd)//_Perd为函数或者谓词 | 按条件统计元素个数                                 |
-|               |                                                              |                                                    |
-|               |                                                              |                                                    |
+| 算法           | 例子                                                         |                                                    |
+| -------------- | ------------------------------------------------------------ | -------------------------------------------------- |
+| for_each       | for_each(iterator beg,iterator end,func)//将遍历的数据当做参数传入func | 遍历容器，函数func为函数名，仿函数需要加上()       |
+| transform      | transform(v.begin(),v.end(),v2.begin(),_func)//目标容器需要提前开辟足够空间 | 搬运容器到另一个容器中                             |
+| find           | fing(iterator beg,iterator end,value)//查找自定义类型时需要重载== | 查找指定元素，返回指定元素迭代器或者end()          |
+| find_if        | fing_if(iterator beg,iterator end,_Perd)//_Perd为函数或者谓词 | 按条件查找元素(只返回符合条件的第一个元素的迭代器) |
+| adjacent_find  | adjacent_fing(iterator beg,iterator end)//返回第一个位置迭代器或者end() | 查找重复相邻的元素                                 |
+| binary_search  | binary_search(iterator beg,iterator end，value)//元素必须有序,返回bool | 二分查找法                                         |
+| count          | count(iterator beg,iterator end，value)//自定义类型需要重载== | 统计元素个数                                       |
+| count_if       | count_if(iterator beg,iterator end，_Perd)//_Perd为函数或者谓词 | 按条件统计元素个数                                 |
+| sort           | sort(iterator beg,iterator end,_Pred)                        | 对容器内元素进行排序                               |
+| random_shuffle | random_shuffle(iterator beg,iterator end)//记得加上随机数种子 | 洗牌，指定范围内的元素随机调整次序                 |
+| merge          |                                                              | 容器元素合并，并存储到另一容器中                   |
+| reverse        |                                                              |                                                    |
+|                |                                                              |                                                    |
 
 
 
