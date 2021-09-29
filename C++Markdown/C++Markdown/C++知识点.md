@@ -869,21 +869,29 @@ transfrom(v.begin(),v.end(),v2.begin(),logical_not<bool>());//取反后迁移
 
 ##### STL常用算法:头文件：<algorithm><functional><numeric>
 
-| 算法           | 例子                                                         |                                                    |
-| -------------- | ------------------------------------------------------------ | -------------------------------------------------- |
-| for_each       | for_each(iterator beg,iterator end,func)//将遍历的数据当做参数传入func | 遍历容器，函数func为函数名，仿函数需要加上()       |
-| transform      | transform(v.begin(),v.end(),v2.begin(),_func)//目标容器需要提前开辟足够空间 | 搬运容器到另一个容器中                             |
-| find           | fing(iterator beg,iterator end,value)//查找自定义类型时需要重载== | 查找指定元素，返回指定元素迭代器或者end()          |
-| find_if        | fing_if(iterator beg,iterator end,_Perd)//_Perd为函数或者谓词 | 按条件查找元素(只返回符合条件的第一个元素的迭代器) |
-| adjacent_find  | adjacent_fing(iterator beg,iterator end)//返回第一个位置迭代器或者end() | 查找重复相邻的元素                                 |
-| binary_search  | binary_search(iterator beg,iterator end，value)//元素必须有序,返回bool | 二分查找法                                         |
-| count          | count(iterator beg,iterator end，value)//自定义类型需要重载== | 统计元素个数                                       |
-| count_if       | count_if(iterator beg,iterator end，_Perd)//_Perd为函数或者谓词 | 按条件统计元素个数                                 |
-| sort           | sort(iterator beg,iterator end,_Pred)                        | 对容器内元素进行排序                               |
-| random_shuffle | random_shuffle(iterator beg,iterator end)//记得加上随机数种子 | 洗牌，指定范围内的元素随机调整次序                 |
-| merge          |                                                              | 容器元素合并，并存储到另一容器中                   |
-| reverse        |                                                              |                                                    |
-|                |                                                              |                                                    |
+| 算法             | 例子                                                         |                                                    |
+| ---------------- | ------------------------------------------------------------ | -------------------------------------------------- |
+| for_each         | for_each(iterator beg,iterator end,func)//将遍历的数据当做参数传入func | 遍历容器，函数func为函数名，仿函数需要加上()       |
+| transform        | transform(v.begin(),v.end(),v2.begin(),_func)//目标容器需要提前开辟足够空间 | 搬运容器到另一个容器中                             |
+| find             | fing(iterator beg,iterator end,value)//查找自定义类型时需要重载== | 查找指定元素，返回指定元素迭代器或者end()          |
+| find_if          | fing_if(iterator beg,iterator end,_Perd)//_Perd为函数或者谓词 | 按条件查找元素(只返回符合条件的第一个元素的迭代器) |
+| adjacent_find    | adjacent_fing(iterator beg,iterator end)//返回第一个位置迭代器或者end() | 查找重复相邻的元素                                 |
+| binary_search    | binary_search(iterator beg,iterator end，value)//元素必须有序,返回bool | 二分查找法                                         |
+| count            | count(iterator beg,iterator end，value)//自定义类型需要重载== | 统计元素个数                                       |
+| count_if         | count_if(iterator beg,iterator end，_Perd)//_Perd为函数或者谓词 | 按条件统计元素个数                                 |
+| sort             | sort(iterator beg,iterator end,_Pred)                        | 对容器内元素进行排序                               |
+| random_shuffle   | random_shuffle(iterator beg,iterator end)//记得加上随机数种子 | 洗牌，指定范围内的元素随机调整次序                 |
+| merge            | merge(iterator beg1,iterator end1,iterator beg2,iterator end2,iterator dest)//dest目标容器开始迭代器,目标容器必须提前开辟空间 | 容器元素合并，并存储到另一容器中                   |
+| reverse          | reverse(iterator beg,iterator end)                           | 反转元素                                           |
+| copy             | copy(v1.begin(),v1.end(),v2.begin())                         | 将容器内指定区间内元素拷贝到另一容器中             |
+| replace          | replace(iterator beg,iterator end,oldval,newval )            | 将容器指定区间内旧元素替换为新元素                 |
+| replace_if       | replace(iterator beg,iterator end,_pred,newval )             | 将容器指定区间内满足条件的元素替换为新元素         |
+| swap             | swap(container C1,container C2)//同种容器                    | 互换两容器元素                                     |
+| accumulate       | accumulate(iterator beg,iterator end,value )//value 为起始值，仅求累加，value = 0 | 计算容器元素累计总和+value                         |
+| fill             | fill(iterator beg,iterator end,value )//value为填充值        | 向容器中填充元素                                   |
+| set_intersection | set_intersection(iterator beg1,iterator end1,iterator beg2,iterator end2,iterator dest)//dest目标容器开始迭代器,目标容器必须提前开辟空间 | 交集                                               |
+| set_union        | set_union(iterator beg1,iterator end1,iterator beg2,iterator end2,iterator dest)//dest目标容器开始迭代器,目标容器必须提前开辟空间 | 并集                                               |
+| set_difference   | set_difference(iterator beg1,iterator end1,iterator beg2,iterator end2,iterator dest)//dest目标容器开始迭代器,目标容器必须提前开辟空间 | 差集                                               |
 
 
 
@@ -1110,4 +1118,26 @@ LRU：最近最久未使用置换算法
 ​		三次挥手:确认双方收发功能都正常，四次也可以但是显得比较多余
 
 ​		四次挥手:分别对应主动方关闭发送数据，被动方确认；被动方关闭发送数据，主动方确认。
+
+
+
+
+
+### C++网络编程
+
+##### TCP/IP基础
+
+###### ISO/OSI模型
+
+
+
+###### TCP/IP四层模型
+
+
+
+##### socket编程
+
+##### 进程间通信
+
+##### 线程
 
